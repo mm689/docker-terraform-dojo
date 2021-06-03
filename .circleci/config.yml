@@ -13,9 +13,10 @@ workflows:
       - release:
           requires:
             - itest
-      - publish:
-          requires:
-            - release
+      # TODO reinstate once pipeline is safe
+      # - publish:
+      #     requires:
+      #       - release
 
 jobs:
   build:
@@ -35,6 +36,12 @@ jobs:
     executor: platform
     steps:
       - setup
+      - run:
+          command: git checkout https://github.com/bats-core/bats-core /opt/
+      - run:
+          command: git checkout https://github.com/bats-core/bats-support /opt/
+      - run:
+          command: git checkout https://github.com/bats-core/bats-support /opt/
       - attach_workspace:
           at: ~/repo
       - run:
